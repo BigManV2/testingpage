@@ -11,5 +11,6 @@ function changeText() {
         document.getElementById('dynamicText').innerText = newText;
     }
 }
+
 // Call the function when the page loads
 window.onload = changeText;
