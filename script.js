@@ -17,7 +17,6 @@ function changeTitle() {
     const newTitle = getURLParameter('title');
     if (newTitle) {
         document.title = newTitle; // Change the document title
-        document.getElementById('dynamicTitle').innerText = newTitle; // Assuming there's an element with this ID
     }
 }
 
