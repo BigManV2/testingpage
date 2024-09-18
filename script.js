@@ -22,4 +22,5 @@ function changeTitle() {
 
 // Call the function when the page loads
 window.onload = changeTitle;
+window.onload = changeText;
 //frf
