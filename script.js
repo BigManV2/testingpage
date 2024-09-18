@@ -20,12 +20,6 @@ function changeTitle() {
     }
 }
 
-// Call both functions
-function pushParam() {
-    changeText(); // Call the function
-    changeTitle(); // Call the function
-}
-
 // Call the function when the page loads
-window.onload = pushParam;
+window.onload = changeTitle;
 //frf
