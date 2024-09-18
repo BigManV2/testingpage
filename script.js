@@ -19,4 +19,4 @@ function changeTitle() {
 }
 // Call the function when the page loads
 window.onload = changeText;
-
+window.onload = changeTitle;
