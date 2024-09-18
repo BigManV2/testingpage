@@ -1,6 +1,13 @@
-<p>hallo world</p>
+<p>your id is below</p>
+<p id="visitorId">default</p>
+
+<script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
 <script>
-    window.onload = function newDoc() {
-      window.location.assign("https://www.w3schools.com")
-    }
-    </script>
+    const fpPromise = FingerprintJS.load();
+
+    fpPromise.then(fp => fp.get()).then(result => {
+        const visitorId = result.visitorId;
+        console.log(visitorId); // Send this ID to your server
+        document.getElementById('Id').innerHTML = visitorId;
+    });
+</script>
