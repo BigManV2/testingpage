@@ -1,13 +1,50 @@
-<p>your id is below</p>
-<p id="visitorId">default</p>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Footprint Collection</title>
+    <script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
+</head>
+<body>
+    <h1>Enter your username</h1>
+    <form id="usernameForm">
+        <input type="text" id="username" placeholder="Enter Username" required>
+        <button type="submit">Submit</button>
+    </form>
 
-<script src="https://cdn.jsdelivr.net/npm/@fingerprintjs/fingerprintjs@3/dist/fp.min.js"></script>
-<script>
-    const fpPromise = FingerprintJS.load();
+    <script>
+        const form = document.getElementById('usernameForm');
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
 
-    fpPromise.then(fp => fp.get()).then(result => {
-        const visitorId = result.visitorId;
-        console.log(visitorId); // Send this ID to your server
-        document.getElementById('Id').innerHTML = visitorId;
-    });
-</script>
+            const username = document.getElementById('username').value;
+
+            // Generate a browser fingerprint using FingerprintJS
+            const fp = await FingerprintJS.load();
+            const result = await fp.get();
+            const fingerprint = result.visitorId;
+
+            // Fetch user's IP address (using an external API or your server)
+            const response = await fetch('https://api64.ipify.org?format=json');
+            const data = await response.json();
+            const ipAddress = data.ip;
+
+            // Send the collected data (username, fingerprint, and IP) to the server
+            await fetch('/collect', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    username: username,
+                    fingerprint: fingerprint,
+                    ip: ipAddress,
+                }),
+            });
+
+            alert('Data submitted successfully!');
+        });
+    </script>
+</body>
+</html>
