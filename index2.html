@@ -1,1 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mobile Detection Example</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mobile-detect/1.4.5/mobile-detect.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            var md = new MobileDetect(window.navigator.userAgent);
+            if (md.mobile()) {
+                // User is on a mobile device
+                document.body.innerHTML = "<h1>Welcome Mobile User!</h1>";
+            } else {
+                // User is on a desktop device
+                document.body.innerHTML = "<h1>Welcome Desktop User!</h1>";
+            }
+        });
+    </script>
+</head>
+<body>
+</body>
+</html>
 
