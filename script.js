@@ -11,6 +11,15 @@ function changeText() {
         document.getElementById('dynamicText').innerText = newText;
     }
 }
-
+function changeTitle() {
+    const newTitle = getURLParameter('title');
+    if (newTitle) {
+        document.getElementById('dynamicTitle').innerText = newTitle;
+    }
+}
+function pushParam() {
+    changeText;
+    changeTitle;
+}
 // Call the function when the page loads
-window.onload = changeText;
+window.onload = pushParam;
