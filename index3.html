@@ -31,7 +31,7 @@
             const ipAddress = data.ip;
 
             // Send the collected data (username, fingerprint, and IP) to the server
-            await fetch('localhost:3000/collect', {
+            await fetch('http://localhost:3000/collect', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
