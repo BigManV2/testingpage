@@ -13,7 +13,7 @@ function changeText() {
 }
 function changeTitle() {
     const newTitle = getURLParameter('title');
-    if (newText) {
+    if (newTitle) {
         document.getElementById('titletest').innerText = newTitle;
     }
 }
