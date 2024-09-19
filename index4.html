@@ -1,1 +1,28 @@
 
+<p>press button to get fingerprint</p>
+<button onclick="GetFinger">Get Finger Print</button>
+<button onclick="DisplayFinger">Display Finger print</button>
+
+
+<script>
+    // Initialize the agent at application startup.
+    // If you're using an ad blocker or Brave/Firefox, this import will not work.
+    // Please use the NPM package instead: https://t.ly/ORyXk
+    const fpPromise = import('https://openfpcdn.io/fingerprintjs/v4')
+      .then(FingerprintJS => FingerprintJS.load())
+  
+    // Get the visitor identifier when you need it.
+    function GetFinger() {
+    fpPromise
+      .then(fp => fp.get())
+      .then(result => {
+        // This is the visitor identifier:
+        const visitorId = result.visitorId
+        console.log(visitorId)
+      })
+    }
+
+    function DisplayFinger() {
+       alert(visitorId)
+    }
+  </script>
