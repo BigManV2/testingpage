@@ -117,10 +117,7 @@
 
     <script>
         (function() {
-            var checkCookie = document.cookie.indexOf('accessGranted=true') === -1;
-            if (checkCookie) {
-                window.location.href = 'login';
-            }
+            
 
             window.acknowledgeAnnouncement = function() {
                 document.cookie = 'announcementSeen=true; path=/'; // Set cookie to indicate the announcement has been read
