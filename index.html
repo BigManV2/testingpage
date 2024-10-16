@@ -1,59 +1,93 @@
 <!DOCTYPE html>
-<html style="width:100%;height:100%;background-color:black;">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0" />
-		<meta name="description" content="Play minecraft 1.8 in your browser" />
-		<meta name="keywords" content="eaglercraft, eaglercraftx, minecraft, 1.8, 1.8.8" />
-		<title>EaglercraftX 1.8</title>
-		<meta property="og:locale" content="en-US" />
-		<meta property="og:type" content="website" />
-		<meta property="og:title" content="EaglercraftX 1.8" />
-		<meta property="og:description" content="Play minecraft 1.8 in your browser" />
-		<meta property="og:image" content="favicon.png" />
-		<link type="image/png" rel="shortcut icon" href="favicon.png" />
-		<script type="text/javascript" src="classes.js"></script>
-		<script type="text/javascript">
-			"use strict";
-			window.addEventListener("load", function() {
-				if(window.location.href.indexOf("file:") === 0) {
-					alert("HTTP please, do not open this file locally, run a local HTTP server and load it via HTTP");
-				}else {
-					
-					// %%%%%%%%% launch options %%%%%%%%%%%%
-					
-					var relayId = Math.floor(Math.random() * 3);
-					window.eaglercraftXOpts = {
-						demoMode: false,
-						container: "game_frame",
-						assetsURI: "assets.epk",
-						localesURI: "lang/",
-						worldsDB: "worlds",
-						servers: [
-							/* example: { addr: "ws://localhost:8081/", name: "Local test server" } */
-						],
-						relays: [
-							{ addr: "wss://relay.deev.is/", comment: "lax1dude relay #1", primary: relayId == 0 },
-							{ addr: "wss://relay.lax1dude.net/", comment: "lax1dude relay #2", primary: relayId == 1 },
-							{ addr: "wss://relay.shhnowisnottheti.me/", comment: "ayunami relay #1", primary: relayId == 2 }
-						]
-					};
-					
-					// %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-					
-					var q = window.location.search;
-					if((typeof q === "string") && q[0] === "?" && (typeof window.URLSearchParams !== "undefined")) {
-						q = new window.URLSearchParams(q);
-						var s = q.get("server");
-						if(s) window.eaglercraftXOpts.joinServer = s;
-					}
-					
-					main();
-					
-				}
-			});
-		</script>
-	</head>
-	<body style="margin:0px;width:100%;height:100%;overflow:hidden;background-color:black;" id="game_frame">
-	</body>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HTML Tester</title>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        textarea {
+            width: 80%;
+            height: 200px;
+        }
+        iframe {
+            width: 80%;
+            height: 300px;
+            border: 1px solid #ccc;
+        }
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            border: 1px solid #ccc;
+            padding: 20px;
+            z-index: 1000;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+<body>
+    <h1>HTML Tester</h1>
+    <textarea id="htmlInput" placeholder="Type your HTML here..."></textarea>
+    <button onclick="updateOutput()">Run</button>
+    <button onclick="showHtmlPopup()">Show HTML</button>
+    <button onclick="openOutputInNewTab()">Show Output in New Tab</button>
+    <h2>Output:</h2>
+    <iframe id="outputFrame"></iframe>
+
+    <div class="overlay" id="overlay" onclick="closePopup()"></div>
+    <div class="popup" id="popup">
+        <h2>Your HTML Code:</h2>
+        <pre id="htmlCode"></pre>
+        <button onclick="closePopup()">Close</button>
+    </div>
+
+    <script>
+        function updateOutput() {
+            const html = document.getElementById('htmlInput').value;
+            const iframe = document.getElementById('outputFrame');
+            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
+            iframeDoc.open();
+            iframeDoc.write(html);
+            iframeDoc.close();
+        }
+
+        function showHtmlPopup() {
+            const html = document.getElementById('htmlInput').value;
+            document.getElementById('htmlCode').textContent = html;
+            document.getElementById('popup').style.display = 'block';
+            document.getElementById('overlay').style.display = 'block';
+        }
+
+        function openOutputInNewTab() {
+            const html = document.getElementById('htmlInput').value;
+            const newTab = window.open();
+            newTab.document.open();
+            newTab.document.write(html);
+            newTab.document.close();
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = 'none';
+            document.getElementById('overlay').style.display = 'none';
+        }
+    </script>
+</body>
 </html>
